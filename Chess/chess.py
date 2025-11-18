@@ -171,7 +171,7 @@ def pawn_valid_moves(current_pos, board):
                 valid_moves.append((x, y+1))
             
         # if pawn hasn't moved yet
-        if (current_pos[0] == 1) and (not is_occupied((x, y + 2), board)):
+        if (current_pos[1] == 1) and (not is_occupied((x, y + 2), board)):
             valid_moves.append((x, y+2))
         
         # captures
@@ -188,7 +188,7 @@ def pawn_valid_moves(current_pos, board):
                 valid_moves.append((x, y-1))
             
         # if pawn hasn't moved yet
-        if (current_pos[0] == 6) and (not is_occupied((x, y - 2), board)):
+        if (current_pos[1] == 6) and (not is_occupied((x, y - 2), board)):
             valid_moves.append((x, y-2))
         
         # captures
