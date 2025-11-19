@@ -160,6 +160,18 @@ def on_board(position):
 
     return (0 <= x <= 7) and (type(x) == int) and (0 <= y <= 7) and (type(y) == int)
 
+def enemy_color(color):
+    """
+    
+    """
+
+    if color == "w":
+        return "b"
+    elif color == "b":
+        return "w"
+    else:
+        raise ValueError("enemy_color function was passed an incorrect character")
+
 def pawn_valid_moves(current_pos, board):
     """
     Checks which sqares a pawn can move to.
@@ -223,18 +235,28 @@ def rook_valid_moves(current_pos, board):
     
     """
 
-    x, y = current_pos
-    valid_moves = []
-
     # check there actually is a rook
     if piece_on_square(current_pos, board) != "r":
         raise ValueError("there is not a rook on the position input to the rook_valid_moves function")
+    
+
+    x, y = current_pos
+    valid_moves = []
+    this_color = color_on_square(current_pos, board)
+    enemy_color = enemy_color(this_color)
+    
+    # TODO: add taking for all other directions than up
 
     # up
     move_y = y + 1
-    while (move_y <= 7) and (not is_occupied(x, move_y), board):
+    enemy_found = color_on_square((x, move_y), board) == enemy_color
+    while (move_y <= 7) and ((not is_occupied(x, move_y), board) or (enemy_found)):
         valid_moves.append(move_x, y)
+
         move_y += 1
+        enemy_found = color_on_square((x, move_y), board) == enemy_color
+        if enemy_found:
+            break
 
     # down
     move_y = y - 1
@@ -270,6 +292,9 @@ def knight_valid_moves(current_pos, board):
     if piece_on_square(current_pos, board) != "n":
         raise ValueError("there is not a knight on the position input to the knight_valid_moves function")
     
+    # top right moves
+    
+
     # TODO: implement this function
     
 
