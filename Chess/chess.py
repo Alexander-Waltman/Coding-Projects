@@ -146,6 +146,20 @@ def piece_on_square(position, board):
         name = board[x][y].lower()
         return name
 
+def on_board(position):
+    """
+    Checks if a position is a valid spot on a chess board
+
+    Parameters:
+    position (type: tuple) - x, y coordinate pair for the board
+
+    Returns:
+    (type: bool) - True if valid spot, False if not
+    """
+    x, y = position
+
+    return (0 <= x <= 7) and (type(x) == int) and (0 <= y <= 7) and (type(y) == int)
+
 def pawn_valid_moves(current_pos, board):
     """
     Checks which sqares a pawn can move to.
@@ -196,8 +210,69 @@ def pawn_valid_moves(current_pos, board):
             valid_moves.append((x+1, y-1))
         if (is_occupied((x - 1, y - 1), board)) and (color_on_square((x - 1, y - 1), board) == "w"):
             valid_moves.append((x-1, y-1))
-        
+    
+    # remove positions that aren't actually on the board
+    for pair in valid_moves:
+        if not on_board(pair):
+            valid_moves.remove(pair)
+
     return valid_moves
+
+def rook_valid_moves(current_pos, board):
+    """
+    
+    """
+
+    x, y = current_pos
+    valid_moves = []
+
+    # check there actually is a rook
+    if piece_on_square(current_pos, board) != "r":
+        raise ValueError("there is not a rook on the position input to the rook_valid_moves function")
+
+    # up
+    move_y = y + 1
+    while (move_y <= 7) and (not is_occupied(x, move_y), board):
+        valid_moves.append(move_x, y)
+        move_y += 1
+
+    # down
+    move_y = y - 1
+    while (move_y >= 0) and (not is_occupied(x, move_y), board):
+        valid_moves.append(move_x, y)
+        move_y -= 1
+    
+    # left
+    move_x = x - 1
+    while (move_x >= 0) and (not is_occupied(move_x, y), board):
+        valid_moves.append(move_x, y)
+        move_x -= 1
+    
+    # right
+    move_x = x + 1
+    while (move_x <= 7) and (not is_occupied(move_x, y), board):
+        valid_moves.append(move_x, y)
+        move_x += 1
+    
+    # remove positions that aren't actually on the board
+    for pair in valid_moves:
+        if not on_board(pair):
+            valid_moves.remove(pair)
+
+def knight_valid_moves(current_pos, board):
+    """
+    
+    """
+    x, y = current_pos
+    valid_moves = []
+
+    # check there actually is a knight
+    if piece_on_square(current_pos, board) != "n":
+        raise ValueError("there is not a knight on the position input to the knight_valid_moves function")
+    
+    # TODO: implement this function
+    
+
 
 def main():
     board = create_board()
