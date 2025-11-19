@@ -176,13 +176,13 @@ def pawn_valid_moves(current_pos, board):
         
         # captures
         if (is_occupied((x + 1, y + 1), board)) and (color_on_square((x + 1, y + 1), board) == "b"):
-            valid_moves.apped(x+1, y+1)
+            valid_moves.append((x+1, y+1))
         if (is_occupied((x - 1, y + 1), board)) and (color_on_square((x - 1, y + 1), board) == "b"):
-            valid_moves.apped(x-1, y+1)
+            valid_moves.append((x-1, y+1))
 
     
     # black pawns
-    if color_on_square(current_pos, board) == "w":
+    if color_on_square(current_pos, board) == "b":
         # square right in front of it
         if not is_occupied((x, y - 1), board):
                 valid_moves.append((x, y-1))
@@ -192,12 +192,12 @@ def pawn_valid_moves(current_pos, board):
             valid_moves.append((x, y-2))
         
         # captures
-        if (is_occupied((x + 1, y - 1), board)) and (color_on_square((x + 1, y - 1), board) == "b"):
-            valid_moves.apped(x+1, y-1)
-        if (is_occupied((x - 1, y - 1), board)) and (color_on_square((x - 1, y - 1), board) == "b"):
-            valid_moves.apped(x-1, y-1)
+        if (is_occupied((x + 1, y - 1), board)) and (color_on_square((x + 1, y - 1), board) == "w"):
+            valid_moves.append((x+1, y-1))
+        if (is_occupied((x - 1, y - 1), board)) and (color_on_square((x - 1, y - 1), board) == "w"):
+            valid_moves.append((x-1, y-1))
         
-        return(valid_moves)
+    return valid_moves
 
 def main():
     board = create_board()
