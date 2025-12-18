@@ -1,0 +1,7 @@
+Exam 1,.15,.93
+Exam 2,.2,.93
+SimBio Readings,.1,(220-14)/220
+iNaturalist,.05,18/20
+Comic Project,.05,1
+In-Class Stuff,.15,.9
+Class Community,.05,1
