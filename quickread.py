@@ -5,7 +5,7 @@ wn = turtle.Screen()
 t = turtle.Turtle()
 t.hideturtle()
 
-file_name = "Random_py_files/text.txt"
+file_name = "C:/MyDocs/Coding Projects/text.txt"
 text = open(file_name, "r").read().split()
 
 words_per_second = 10
