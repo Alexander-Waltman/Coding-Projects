@@ -9,6 +9,11 @@ def CodonToPeptide(codon_str: str) -> str:
     (type: string) - the single letter that corresponds to the amino acid/peptide of the input codon
     """
 
+    # input validation
+    for char in codon_str:
+        if char.upper() not in ["A", "C", "U", "G"]:
+            raise ValueError(f"Invalid base inputted into CodonToPeptide: {char}")
+
     base1 = codon_str[0].upper()
     base2 = codon_str[1].upper()
     base3 = codon_str[2].upper()
@@ -17,75 +22,62 @@ def CodonToPeptide(codon_str: str) -> str:
     reading_frame2 = ""
     reading_frame3 = ""
 
-    if base1 == "G":
-        if base2 == "G":
+    match (base1, base2, base3):
+        case("G", "G", _):
             return "G"
-        elif base2 == "A":
-            if base3 == "G" or base3 == "A":
-                return "E"
-            else:
-                return "D"
-        elif base2 == "C":
+        case("G", "A", "G" | "A"):
+            return "E"
+        case("G", "C", _):
             return "A"
-        elif base2 == "U":
+        case("G", "U", _):
             return "V"
-
-
-    elif base1 == "A":
-        if base2 == "G":
-            if base3 == "G" or base3 == "A":
-                return "R"
-            else:
-                return "S"
-        elif base2 == "A":
-            if base3 == "G" or base3 == "A":
-                return "K"
-            else:
-                return "N"
-        elif base2 == "C":
-            return "T"
-        elif base2 == "U":
-            if base3 == "G":
-                return "M"
-            else: return "I"
-
-
-    elif base1 == "C":
-        if base2 == "G":
+        
+        case("A", "G", "G" | "A"):
             return "R"
-        elif base2 == "A":
-            if base3 == "G" or base3 == "A":
-                return "Q"
-            else:
-                return "H"
-        elif base2 == "C":
+        case("A", "G", "C" | "U"):
+            return "S"
+        case("A", "A", "G" | "A"):
+            return "K"
+        case("A", "A", "C" | "U"):
+            return "N"
+        case("A", "C", _):
+            return "T"
+        case("A", "U", "G"):
+            return "M"
+        case("A", "U", "A" | "C" | "U"):
+            return "I"
+        
+        case("C", "G", _):
+            return "R"
+        case("C", "A", "G" | "A"):
+            return "Q"
+        case("C", "A", "T" | "U"):
+            return "H"
+        case("C", "C", _):
             return "P"
-        elif base2 == "U":
+        case("C", "U", _):
             return "L"
 
-
-    elif base1 == "U":
-        if base2 == "U":
-            if base3 == "U" or base3 == "C":
-                return "F"
-            else:
-                return "L"
-        elif base2 == "C":
+        case("U", "U", "U" | "C"):
+            return "F"
+        case("U", "U", "A" | "G"):
+            return "L"
+        case("U", "C", _):
             return "S"
-        elif base2 == "A":
-            if base3 == "U" or base3 == "C":
-                return "Y"
-            else:
-                return "Stop"
-        elif base2 == "G":
-            if base3 == "U" or base3 == "C":
-                return "C"
-            elif base3 == "A":
-                return "Stop"
-            else:
-                return "W"
+        case("U", "A", "U" | "C"):
+            return "Y"
+        case("U", "A", "A" | "G"):
+            return "Stop"
+        case("U", "G", "U" | "C"):
+            return "C"
+        case("U", "G", "A"):
+            return "Stop"
+        case("U", "G", "G"):
+            return "W"
 
-def RNAToPolypep(mrna_seq: str, del_meth = True) -> str:
+
+
+def RNAToPolypep(mrna_seq: str, del_meth: bool = True) -> str:
     """
     Translates an mRNA sequence into the polypeptide sequence
 
@@ -152,3 +144,4 @@ def RNAToPolypep(mrna_seq: str, del_meth = True) -> str:
         # found stop codon
         elif found_start3 == True and amino_acid == "Stop":
             found_stop3 = True
+
