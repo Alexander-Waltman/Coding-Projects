@@ -1,0 +1,7 @@
+Exam 1,.15,.93
+Exam 2,.2,.93
+Readings,.1,(220-14)/220
+Project 1,.05,18/20
+Project 2,.05,1
+In-Class Assignments,.15,.9
+Participation,.05,1

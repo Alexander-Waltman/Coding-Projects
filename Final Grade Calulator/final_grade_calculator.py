@@ -7,7 +7,7 @@ def read_filedata(filename):
     filename (type: string) - name of the file to read the data from
 
     Returns:
-    (type: dictionary) - key: category name; value: (weight, grade)
+    (type: dictionary) - {str: (float, float)} representing {category: (weight, grade)}
     """
     grade_dict = {}
 
@@ -45,7 +45,7 @@ def get_final_grade(grade_dict):
 def main():
     filename = input("Input filname: ")
     current_grade = get_final_grade(read_filedata(filename))
-    print(f"Your final grade in this class is {(current_grade * 100):.2f}%")
+    print(f"Withought completing any other assignements, your final grade would be {(current_grade * 100):.2f}%")
 
     final_weight = float(input("How much is your final worth? (0-1)? "))
     target_grade = float(input("What final grade do you want in the class? (0-1) "))
