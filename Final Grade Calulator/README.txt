@@ -7,5 +7,5 @@ Name, Weight (decimal), Grade (decimal)
 EXAMPLE:
 Presentation, .1, .95
 Midterm, .2, .85
-s
+
 This means the a presentation is worth 10% of your grade and you got a 95%, also the midterm is worth 20% of the grade and you got an 85% on it
