@@ -1,6 +1,10 @@
 import math
+import matplotlib.pyplot as plt
 
+# half life in hours
 HALF_LIFE = 5
+# mg of caffeine in morning coffee
+COFFEE = 200
 
 def caffeine_decay(initial_mg: float, time: float, half_life: float = HALF_LIFE):
     """
@@ -28,19 +32,27 @@ def caffeine_decay(initial_mg: float, time: float, half_life: float = HALF_LIFE)
 
 
 def main():
-    # mg caffeine in morning coffee
-    coffee = 200
+    days = 5
 
-    # days to run simulation for
-    days = 100
+    x_vals = list(range(8, 9 + 24*days))
+    y_vals = []
 
-    caffeine_8am = coffee
-    for i in range(days):
-        caffeine_10pm = caffeine_decay(caffeine_8am, 14)
-        caffeine_8am = caffeine_decay(caffeine_10pm, 10) + coffee
+    caff_lvl = 0
+    for t in x_vals:
+        # caffeine decay
+        caff_lvl = caffeine_decay(caff_lvl, 1)
 
-    print(f"Caffeine at bedtime: {caffeine_10pm}")
-    print(f"Caffeine just before coffee: {caffeine_8am - coffee}")
+        # drink coffee at 8am
+        if t % 24 == 8:
+            caff_lvl += COFFEE
+        
+        y_vals.append(caff_lvl)
+
+    plt.plot(x_vals, y_vals)
+    plt.xlabel("Time (hours)")
+    plt.ylabel("Caffeine (mg)")
+    plt.title("Caffeine Levels over Time")
+    plt.show()
 
 
 if __name__ == "__main__":
