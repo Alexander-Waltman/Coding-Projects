@@ -48,10 +48,22 @@ def main():
         
         y_vals.append(caff_lvl)
 
+    # graph caffeine and axes
     plt.plot(x_vals, y_vals)
     plt.xlabel("Time (hours)")
     plt.ylabel("Caffeine (mg)")
     plt.title("Caffeine Levels over Time")
+
+    # graph dotted line at minimum caffeine level
+    plt.axhline(y = min(y_vals), c = "black", linestyle = '--')
+    ax = plt.gca()
+    ticks = ax.get_yticks().tolist()
+    ticks.append(min(y_vals))
+    ticks.sort()
+    ax.set_yticks(ticks)
+    plt.ylim(bottom = 0)
+
+
     plt.show()
 
 
